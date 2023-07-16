@@ -1,21 +1,38 @@
+export {main, allowDrop, drag, drop}
 let draggingElementNumber = null
 
-function allowDrop(ev) {
-  ev.preventDefault();
- 
-}
 
-
-window.addEventListener('load', function() {
- 
-  var thElements = document.getElementsByTagName('th');
+function main(table) {
+  var thElements = table.getElementsByTagName('th');
   Array.from(thElements).forEach(function(th) {
     th.setAttribute('draggable', 'true');
     th.setAttribute('ondragstart', 'drag(event)');
     th.setAttribute('ondrop', 'drop(event)');
     th.setAttribute('ondragover', 'allowDrop(event)');
   });
-});
+}
+
+
+
+
+// window.addEventListener('load', function() {
+ 
+//   var thElements = document.getElementsByTagName('th');
+//   Array.from(thElements).forEach(function(th) {
+//     th.setAttribute('draggable', 'true');
+//     th.setAttribute('ondragstart', 'drag(event)');
+//     th.setAttribute('ondrop', 'drop(event)');
+//     th.setAttribute('ondragover', 'allowDrop(event)');
+//   });
+// });
+
+
+
+
+function allowDrop(ev) {
+  ev.preventDefault(); 
+}
+
 
 
 function drag(ev) {
@@ -31,7 +48,7 @@ function drop(ev) {
 
   if(draggingElementNumber != from) {
     //move the column to the new location
-    arrangeAllTables(draggingElementNumber, from)
+    reorderColumn(draggingElementNumber, from)
   }
 
 }
@@ -52,7 +69,7 @@ function indexFinder(ev) {
 }
 
 
-function arrangeAllTables(from, to){
+function reorderColumn(from, to){
   let table = document.getElementById('table')
     var rows = $('tr', $(table))
     var cols
